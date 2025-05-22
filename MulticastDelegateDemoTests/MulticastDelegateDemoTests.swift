@@ -291,21 +291,42 @@ class MulticastDelegateDemoTests: XCTestCase {
         XCTAssertTrue(multicastDelegate.isEmpty)
     }
     
-    func testNotEmptyAfterAdd() {
+    func testNotEmptyAfterAddtrongReference() {
         
         let multicastDelegate = MulticastDelegate<TestDelegate>()
-        multicastDelegate += DelegateTestClass()
+        let delegate1 = DelegateTestClass()
+        multicastDelegate += delegate1
         
         XCTAssertFalse(multicastDelegate.isEmpty)
     }
     
-    func testNotEmptyAfterDoubleAdd() {
+    func testNotEmptyAfterDoubleAddStrongReferences() {
+        
+        let multicastDelegate = MulticastDelegate<TestDelegate>()
+        let delegate1 = DelegateTestClass()
+        let delegate2 = DelegateTestClass()
+        multicastDelegate += delegate1
+        multicastDelegate += delegate2
+        
+        XCTAssertFalse(multicastDelegate.isEmpty)
+    }
+    
+    // Thank you ARC + Weak References
+    func testEmptyAfterAddWeakReference() {
+        
+        let multicastDelegate = MulticastDelegate<TestDelegate>()
+        multicastDelegate += DelegateTestClass()
+        
+        XCTAssertTrue(multicastDelegate.isEmpty)
+    }
+    
+    func testEmptyAfterDoubleAddWeakReferences() {
         
         let multicastDelegate = MulticastDelegate<TestDelegate>()
         multicastDelegate += DelegateTestClass()
         multicastDelegate += DelegateTestClass()
         
-        XCTAssertFalse(multicastDelegate.isEmpty)
+        XCTAssertTrue(multicastDelegate.isEmpty)
     }
     
     func testEmptyAfterAddAndDelete() {
