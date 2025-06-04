@@ -291,7 +291,7 @@ class MulticastDelegateDemoTests: XCTestCase {
         XCTAssertTrue(multicastDelegate.isEmpty)
     }
 
-    func testNotEmptyAfterAddtrongReference() {
+    func testNotEmptyAfterAddStrongReference() {
         
         let multicastDelegate = MulticastDelegate<TestDelegate>()
         let delegate1 = DelegateTestClass()
